@@ -35,6 +35,7 @@ class MOHoloNet():
 
         self.filter_num = img_depths
 
+
     def backward_wave_prop(self, holo, otf3d):
         '''
         Backward propagation. Propagate a 2D hologram to a 3D volume.
