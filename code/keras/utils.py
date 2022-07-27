@@ -6,7 +6,7 @@ Created on Tue Oct 15 15:46:04 2019
 
 import math
 import time
-
+import scipy.io
 import h5py
 # import hdf5storage
 import numpy as np
@@ -243,14 +243,16 @@ def res_block(X, filters, reg_param):
 def load_holo(data_dir="./data/", *args):
     n_arg = len(args)
 
-    mat = h5py.File(data_dir, "r")
+    # mat = h5py.File(data_dir, "r")
+    mat = scipy.io.loadmat(data_dir)
     data = np.transpose(mat['data'][()]).astype(np.float32)
+    data = np.transpose(data, (2, 0, 1))
 
     label = np.transpose(mat['label'][()]).astype(np.float32)
-    label = np.transpose(label, (0, 3, 1, 2))
+    label = np.transpose(label, (3, 0, 1, 2))
 
     otf3d = np.transpose(mat['otf3d'][()]).view(np.complex)
-    otf3d = np.transpose(otf3d, (2, 0, 1))
+    # otf3d = np.transpose(otf3d, (2, 0, 1))
     otf3d = np.expand_dims(otf3d, axis=0)
 
     if n_arg == 0:
