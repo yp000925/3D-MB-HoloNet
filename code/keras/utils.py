@@ -19,6 +19,7 @@ from tensorflow import multiply, tile, abs
 from tensorflow.keras import regularizers as reg
 from tensorflow.keras.constraints import NonNeg
 from tensorflow.keras.layers import Conv2D, Activation, Add, BatchNormalization
+from keras import  callbacks
 
 # %%-------------------------------------- Loss ------------------------------------------
 
@@ -365,3 +366,10 @@ class Timer(object):
 
     def timer(self):
         print("Elapsed: %s " % self.elapsed(time.time() - self.start_time))
+
+
+# %%---------------------------call back-----------------------------------------------------
+class print_loss(callbacks.Callback):
+    def on_train_batch_end(self,batch,logs=None):
+        if batch <= 100:
+            print("Up to batch {}, the average loss is {:7.2f}.".format(batch, logs["loss"]))

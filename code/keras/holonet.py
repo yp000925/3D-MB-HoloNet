@@ -17,7 +17,7 @@ from tensorflow.keras.layers import Lambda, Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 
-from utils import *
+from .utils import *
 
 # %%
 class MOHoloNet():

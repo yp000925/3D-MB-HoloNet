@@ -27,8 +27,8 @@ from keras.backend.tensorflow_backend import set_session
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, LearningRateScheduler
 
-from holonet import MOHoloNet
-from utils import *
+from .holonet import MOHoloNet
+from .utils import *
 
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
@@ -124,7 +124,7 @@ tbCallBack = TensorBoard(log_dir=log_dir,
                          )
 
 schedule = PolynomialDecay(maxEpochs=args.epochs, initAlpha=args.lr_max, endAlpha=args.lr_min, power=2)  # Linear Decay (p=1)
-callbacks = [model_checkpoint, tbCallBack, LearningRateScheduler(schedule)]
+callbacks = [model_checkpoint, tbCallBack, LearningRateScheduler(schedule), print_loss]
 
 train_num = train_data.shape[0]
 test_num = val_data.shape[0]
